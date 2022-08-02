@@ -1,0 +1,68 @@
+local chams = {
+    enabled = true,
+    teamcheck = false,
+    settings = {
+        fillColor = Color3.fromRGB(255, 255, 255),
+        fillTransparency = 0.5,
+        outlineColor = Color3.fromRGB(0, 0, 0),
+        outlineTransparency = 0
+    }
+}
+
+function NewCham(v)
+    if v ~= game.Players.LocalPlayer then
+        local c = Instance.new("Highlight", game.CoreGui)
+        c.Enabled = chams.enabled
+        c.Name = tostring(v)
+        c.Adornee = v.Character
+        c.FillColor = chams.settings.fillColor
+        c.FillTransparency = chams.settings.fillTransparency
+        c.OutlineColor = chams.settings.outlineColor
+        c.OutlineTransparency = chams.settings.outlineTransparency
+        c.DepthMode = "AlwaysOnTop"
+    
+        v.CharacterAdded:Connect(function(newCharacter)
+            game.CoreGui[tostring(v)].Adornee = newCharacter
+        end)
+    end
+end
+
+for i,v in pairs(game.Players:GetPlayers()) do
+    NewCham(v)
+end
+
+game.Players.PlayerAdded:Connect(function(v)
+    NewCham(v)
+end)
+
+game.Players.PlayerRemoving:Connect(function(v)
+    if v ~= game.Players.LocalPlayer then
+        if game.CoreGui:FindFirstChild(tostring(v)) then
+            game.CoreGui[tostring(v)]:Destroy()
+        end
+    end
+end)
+
+game.RunService.RenderStepped:Connect(function()
+    for i,v in pairs(game.CoreGui:GetChildren()) do
+        if v:IsA("Highlight") then
+            if chams.enabled then
+                v.Enabled = chams.enabled
+                v.FillColor = chams.settings.fillColor
+                v.FillTransparency = chams.settings.fillTransparency
+                v.OutlineColor = chams.settings.outlineColor
+                v.OutlineTransparency = chams.settings.outlineTransparency
+
+                if chams.teamcheck then
+                    if game.Players[v.Name].TeamColor ~= game.Players.LocalPlayer.TeamColor then
+                        v.Enabled = chams.enabled
+                    else
+                        v.Enabled = false
+                    end
+                end
+            end
+        end
+    end
+end)
+
+getgenv().chams = chams
