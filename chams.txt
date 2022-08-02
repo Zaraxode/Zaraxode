@@ -1,5 +1,5 @@
 local chams = {
-    enabled = true,
+    enabled = false,
     teamcheck = false,
     settings = {
         fillColor = Color3.fromRGB(255, 255, 255),
