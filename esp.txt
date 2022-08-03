@@ -21,10 +21,10 @@ local mathceil = math.ceil
 
 local esp = {
     players = {},
-    enabled = true,
+    enabled = false,
     teamcheck = false,
     fontsize = 13,
-    font = 3,
+    font = 2,
     settings = {
         name = {enabled = true, outline = true, color = Color3fromRGB(255, 255, 255), outlineColor = Color3fromRGB(0, 0, 0)},
         box = {enabled = true, outline = true, color = Color3fromRGB(255, 255, 255), outlineColor = Color3fromRGB(0, 0, 0)},
