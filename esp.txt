@@ -21,7 +21,7 @@ local mathceil = math.ceil
 
 local esp = {
     players = {},
-    enabled = false,
+    enabled = true,
     teamcheck = false,
     fontsize = 13,
     font = 2,
